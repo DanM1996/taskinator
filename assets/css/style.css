@@ -162,6 +162,7 @@ footer {
   padding: 5px 7px;
   margin: 3px;
   background: var(--secondary);
+  border-radius: 20px;
   color: #fff;
 }
 
