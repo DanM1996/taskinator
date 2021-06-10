@@ -52,6 +52,7 @@ var completeEditTask = function(taskName, taskType, taskId) {
             tasks[i].type = taskType;
         }
     }
+    saveTasks();
 
     alert("Task Updated!");
 
@@ -61,8 +62,6 @@ var completeEditTask = function(taskName, taskType, taskId) {
     formEl.querySelector("#save-task").textContent = "Add Task";
 };
 var createTaskEl = function(taskDataObj) {
-    console.log(taskDataObj);
-    console.log(taskDataObj.status);
     // create new list item 
     var listItemEl = document.createElement("li"); 
     listItemEl.className = "task-item"; //takes the new list item and assigns it the css class
@@ -89,6 +88,8 @@ var createTaskEl = function(taskDataObj) {
     taskDataObj.id = taskIdCounter;
 
     tasks.push(taskDataObj);
+
+    saveTasks();
 
     taskIdCounter++;
 }
@@ -181,6 +182,8 @@ var deleteTask = function(taskId) {
 
     // reassign tasks array to be the same as updatedTaskArr
     tasks = updatedTaskArr;
+
+    saveTasks();
 };
 var taskStatusChangeHandler = function(event) {
     // get the task item's id
@@ -206,8 +209,14 @@ var taskStatusChangeHandler = function(event) {
              tasks[i].status = statusValue;
          }
      }
-     console.log(tasks);
+     saveTasks();
 };
+
+var saveTasks = function() {
+
+    // JSON (JavaScript Object Notation). stringify converts the array into a string so local storage can read it
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 formEl.addEventListener("submit", taskFormHandler); 
 pageContentEl.addEventListener("click", taskButtonHandler);
